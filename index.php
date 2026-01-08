@@ -699,7 +699,15 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
 		function bitcoinMood(score) {
 		    const list = moodListForScore(score);
 		    if (!list || !list.length) return 'doing something';
-		    return list[Math.floor(Math.random() * list.length)];
+            const last = state.lastMood || null;
+            let choice = list[Math.floor(Math.random() * list.length)];
+            if (choice === last && list.length > 1) {
+                // pick a different one
+                const idx = (list.indexOf(choice) + 1 + Math.floor(Math.random() * (list.length - 1))) % list.length;
+                choice = list[idx];
+            }
+            state.lastMood = choice;
+		    return choice;
 		}
 
         function renderMoodControls() {
