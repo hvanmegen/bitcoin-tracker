@@ -756,13 +756,17 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
                     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
                         setMoodOverride(null);
                     } else if (e.key === 'ArrowLeft') {
-                        if (setting === 'pro') setMoodOverride(null);
-                        else if (setting === 'degen') setMoodOverride(null);
-                        else setMoodOverride('pro');
+                        if (setting === 'degen') {
+                            setMoodOverride(null); // opposite -> center
+                        } else if (setting === 'auto') {
+                            setMoodOverride('pro');
+                        } // if already pro, keep pro
                     } else if (e.key === 'ArrowRight') {
-                        if (setting === 'degen') setMoodOverride(null);
-                        else if (setting === 'pro') setMoodOverride(null);
-                        else setMoodOverride('degen');
+                        if (setting === 'pro') {
+                            setMoodOverride(null); // opposite -> center
+                        } else if (setting === 'auto') {
+                            setMoodOverride('degen');
+                        } // if already degen, keep degen
                     }
                     animateMoodThumb();
                 }
