@@ -371,7 +371,7 @@ $SERVER_NOW = time();
             const latestTs = state.samples.at(-1).ts;
             const rows = [];
 
-            [1, 12, 24, 48, 72].forEach(h => {
+            [1, 24, 48, 72].forEach(h => {
                 const p = findBefore(latestTs - h * 3600);
                 if (p) rows.push({ label: fmtAgo(h * 3600) + ' ago', value: p.value });
             });
