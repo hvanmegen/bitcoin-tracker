@@ -445,9 +445,16 @@ $SERVER_NOW = time();
             });
 
             const style = getComputedStyle(document.documentElement);
+            const firstVal = vals[0];
+            const lastVal = vals[vals.length - 1];
+            const windowTrend =
+                lastVal > firstVal ? 'up' :
+                lastVal < firstVal ? 'down' :
+                'neutral';
+
             ctx.strokeStyle =
-                state.trend === 'up' ? style.getPropertyValue('--up') :
-                state.trend === 'down' ? style.getPropertyValue('--down') :
+                windowTrend === 'up' ? style.getPropertyValue('--up') :
+                windowTrend === 'down' ? style.getPropertyValue('--down') :
                 style.getPropertyValue('--neutral');
 
             ctx.lineWidth = 3;
@@ -604,7 +611,7 @@ $SERVER_NOW = time();
 		let moodData = null;
 
 		async function loadMood() {
-		    const res = await fetch('mood.json');
+		    const res = await fetch('moods.json');
 		    moodData = await res.json();
 		}
 
