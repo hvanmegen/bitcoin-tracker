@@ -230,24 +230,30 @@ td.value {
 	font-weight: 400;
 }
 
-.source {
-	opacity: 0.15;
-}
-
 .source a,
 .vanillajs a {
 	text-decoration: none;
 	color: var(--fg);
 }
 
+.source {
+	color: rgba(255,255,255,0.15);
+}
+
+@media (prefers-color-scheme: light) {
+	.source {
+		color: rgba(0,0,0,0.15);
+	}
+}
+
 .source a {
-	opacity: 0.3;
-	transition: opacity 120ms ease;
+	color: inherit;
+	transition: color 120ms ease;
 }
 
 .source a:hover,
 .source a:focus-visible {
-	opacity: 1;
+	color: var(--fg);
 }
 
 .vanillajs {
