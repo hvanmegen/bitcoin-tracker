@@ -7,8 +7,8 @@
 	--fg: #eeeeee;
 	--up: #66bb6a;
 	--down: #ff6b6b;
-	--neutral: rgba(180,180,180,0.70);
-	--muted: rgba(255,255,255,0.30);
+	--neutral: rgba(180,180,180,0.7);
+	--muted: rgba(255,255,255,0.3);
 }
 
 @media (prefers-color-scheme: light) {
@@ -17,8 +17,8 @@
 		--fg: #111111;
 		--up: #2e7d32;
 		--down: #c62828;
-		--neutral: rgba(0,0,0,0.45);
-		--muted: rgba(0,0,0,0.35);
+		--neutral: rgba(0,0,0,0.5);
+		--muted: rgba(0,0,0,0.4);
 	}
 }
 
@@ -62,7 +62,7 @@ video {
 
 .price {
 	font-size: 3.2em;
-	letter-spacing: 0.02em;
+	letter-spacing: 0.0em;
 	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 	font-variant-numeric: tabular-nums;
 	font-feature-settings: "tnum";
@@ -90,7 +90,7 @@ video {
 
 .spark-label {
 	font-size: 0.7em;
-	opacity: 0.35;
+	opacity: 0.4;
 	margin-top: 0.2em;
 }
 
@@ -100,7 +100,7 @@ video {
 
 table.anchors {
 	margin-top: 1.2em;
-	font-size: 0.85em;
+	font-size: 0.9em;
 	font-weight: 500;
 	line-height: 1.6;
 	border-collapse: collapse;
@@ -149,9 +149,9 @@ td.value {
 .conclusion {
 	margin-top: 2.2em;
 	margin-bottom: 0.6em;
-	font-size: 1.425em;
+	font-size: 1.4em;
 	font-weight: 500;
-	opacity: 0.55;
+	opacity: 0.6;
 	font-style: italic;
 }
 
@@ -159,7 +159,7 @@ td.value {
 	margin-top: 1em;
 	display: flex;
 	justify-content: center;
-	opacity: 0.33;
+	opacity: 0.3;
 }
 
 .mood-track {
@@ -168,7 +168,7 @@ td.value {
 	height: 26px;
 	border-radius: 999px;
 	background: transparent;
-	border: 1px solid rgba(255,255,255,0.25);
+	border: 1px solid rgba(255,255,255,0.3);
 	overflow: hidden;
 }
 
@@ -194,15 +194,15 @@ td.value {
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	width: 33.3333%;
+	width: 33.3%;
 	background: transparent;
 	border: 0;
 	cursor: pointer;
 }
 
 .mood-hit.pro { left: 0; }
-.mood-hit.auto { left: 33.3333%; }
-.mood-hit.degen { left: 66.6667%; }
+.mood-hit.auto { left: 33.3%; }
+.mood-hit.degen { left: 66.7%; }
 
 .mood-hit:focus-visible {
 	outline: 1px solid var(--fg);
@@ -215,7 +215,7 @@ td.value {
 
 @keyframes moodPulse {
 	0% { transform: translate(-50%, -50%) scale(1); }
-	35% { transform: translate(-50%, -50%) scale(1.12); }
+	35% { transform: translate(-50%, -50%) scale(1.1); }
 	100% { transform: translate(-50%, -50%) scale(1); }
 }
 
@@ -237,7 +237,7 @@ td.value {
 }
 
 .source a {
-	opacity: 0.25;
+	opacity: 0.3;
 	transition: opacity 120ms ease;
 }
 
@@ -247,7 +247,7 @@ td.value {
 }
 
 .vanillajs {
-	opacity: 0.25;
+	opacity: 0.3;
 }
 
 .vanillajs:hover {
