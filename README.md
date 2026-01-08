@@ -24,3 +24,4 @@ Minimalist Bitcoin price monitor with a live sparkline, trend-based mood copy, a
 ## Notes
 - The page derives its base URL at runtime. You can override the asset host (e.g., add `cdn.`) near the top of `index.php` (`$ASSET_HOST`).
 - Auto tone is client-clock based; a manual choice overrides it.
+- Thanks to [CoinGecko](https://www.coingecko.com/) for the price feed powering this project.
