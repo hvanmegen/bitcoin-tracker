@@ -2,6 +2,8 @@
 
 Minimalist Bitcoin price monitor with a live sparkline, trend-based mood copy, and a CoinGecko-powered feed.
 
+![Bitcoin tracker preview](https://cdn.qmp-media.nl/bc/bitcoin.png)
+
 ## What you get
 - Live price display with smooth interpolation between updates
 - Sparkline for the recent window (trend-colored)
@@ -25,3 +27,5 @@ Minimalist Bitcoin price monitor with a live sparkline, trend-based mood copy, a
 - The page derives its base URL at runtime. You can override the asset host (e.g., add `cdn.`) near the top of `index.php` (`$ASSET_HOST`).
 - Auto tone is client-clock based; a manual choice overrides it.
 - Thanks to [CoinGecko](https://www.coingecko.com/) for the price feed powering this project.
+
+![Vanilla JS](https://cdn.qmp-media.nl/bc/vanilla_js.png)
