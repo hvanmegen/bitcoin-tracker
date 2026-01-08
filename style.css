@@ -209,6 +209,16 @@ td.value {
 	outline-offset: 2px;
 }
 
+.mood-thumb.pulse {
+	animation: moodPulse 240ms ease;
+}
+
+@keyframes moodPulse {
+	0% { transform: translate(-50%, -50%) scale(1); }
+	35% { transform: translate(-50%, -50%) scale(1.12); }
+	100% { transform: translate(-50%, -50%) scale(1); }
+}
+
 /* -------------------------------------------------
    Credits
 -------------------------------------------------- */

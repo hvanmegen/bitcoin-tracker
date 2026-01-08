@@ -730,13 +730,33 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
                         : 'Playful tone (manual override)');
         }
 
+        function animateMoodThumb() {
+            const thumb = elMoodThumb();
+            if (!thumb) return;
+            thumb.classList.remove('pulse');
+            // Force reflow to restart animation
+            void thumb.offsetWidth;
+            thumb.classList.add('pulse');
+        }
+
         function initMoodToggle() {
             document.querySelectorAll('[data-mood-mode]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const mode = btn.dataset.moodMode;
                     if (mode === 'auto') setMoodOverride(null);
                     else setMoodOverride(mode);
+                    animateMoodThumb();
                 });
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                    e.preventDefault();
+                    if (e.key === 'ArrowLeft') setMoodOverride('pro');
+                    if (e.key === 'ArrowRight') setMoodOverride('degen');
+                    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') setMoodOverride(null);
+                    animateMoodThumb();
+                }
             });
         }
 
