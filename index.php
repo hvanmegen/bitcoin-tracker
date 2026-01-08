@@ -2,6 +2,21 @@
 // index.php
 // Inject authoritative server time so the browser can compute skew
 $SERVER_NOW = time();
+
+// Derive base URL for this directory (no filename)
+$scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+if (!empty($_SERVER['HTTP_X_FORWARDED_PROTO'])) {
+    $scheme = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+}
+$host = $_SERVER['HTTP_HOST'] ?? 'localhost';
+$dir  = rtrim(dirname($_SERVER['SCRIPT_NAME'] ?? ''), '/\\');
+if ($dir !== '') $dir .= '/';
+$BASE_URL = $scheme . '://' . $host . $dir;
+
+// Optional asset host override (e.g., "cdn." prefix)
+$ASSET_HOST = $host; // default to same host
+// To force a CDN host, set $ASSET_HOST = 'cdn.example.com';
+$ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +25,7 @@ $SERVER_NOW = time();
     <title>Bitcoin Monitor</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.7">
-    <link rel="canonical" href="https://qmp-media.nl/bc/">
+    <link rel="canonical" href="<?php echo htmlspecialchars($BASE_URL, ENT_QUOTES); ?>">
 
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#1f1f1f" media="(prefers-color-scheme: dark)">
@@ -19,12 +34,12 @@ $SERVER_NOW = time();
     <meta name="robots" content="index, follow">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
-    <meta property="og:url" content="https://qmp-media.nl/bc/">
+    <meta property="og:url" content="<?php echo htmlspecialchars($BASE_URL, ENT_QUOTES); ?>">
     <meta property="og:site_name" content="Bitcoin Monitor">
     <meta property="og:title" content="Bitcoin Monitor">
     <meta property="og:description" content="A minimalist Bitcoin Monitor with a realtime feel, animated price, sparkline history and anchor comparisons. Powered with data from CoinGecko.">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://cdn.qmp-media.nl/bc/bitcoin.png">
+    <meta property="og:image" content="<?php echo htmlspecialchars($ASSET_BASE . 'bitcoin.png', ENT_QUOTES); ?>">
     <meta property="og:image:width" content="512">
     <meta property="og:image:height" content="512">
     <meta property="og:locale" content="en_US">
@@ -32,7 +47,7 @@ $SERVER_NOW = time();
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Bitcoin Monitor">
     <meta name="twitter:description" content="Animated Bitcoin price monitor with minute-level updates and historical anchors. Data from CoinGecko.">
-    <meta name="twitter:image" content="https://cdn.qmp-media.nl/bc/bitcoin.png">
+    <meta name="twitter:image" content="<?php echo htmlspecialchars($ASSET_BASE . 'bitcoin.png', ENT_QUOTES); ?>">
 
     <link rel="stylesheet" href="style.css">
 
@@ -59,7 +74,7 @@ $SERVER_NOW = time();
            CONFIG
         ========================= */
         const CONFIG = {
-            feedFile: 'bitcoin.json',
+            feedFile: '<?php echo addslashes($BASE_URL . 'bitcoin.json'); ?>',
             renderIntervalMs: 10,
             staleMultiplier: 2,
             sparkTargetWindowSec: 24 * 3600,
@@ -677,7 +692,7 @@ $SERVER_NOW = time();
         }
 
 		async function loadMood() {
-		    const res = await fetch('moods.json');
+		    const res = await fetch('<?php echo addslashes($BASE_URL . 'moods.json'); ?>');
 		    const raw = await res.json();
             moodData = normalizeMoodData(raw);
             updateMoodMode();
@@ -757,8 +772,8 @@ $SERVER_NOW = time();
 <body>
     <div class="container">
         <video loop autoplay muted poster="//cdn.qmp-media.nl/bc/bitcoin.png">
-            <source src="//cdn.qmp-media.nl/bc/bitcoin.webm" type="video/webm">
-            <source src="//cdn.qmp-media.nl/bc/bitcoin.mp4" type="video/mp4">
+            <source src="<?php echo htmlspecialchars($ASSET_BASE . 'bitcoin.webm', ENT_QUOTES); ?>" type="video/webm">
+            <source src="<?php echo htmlspecialchars($ASSET_BASE . 'bitcoin.mp4', ENT_QUOTES); ?>" type="video/mp4">
         </video>
 
         <div id="price" class="price">Loading…</div>
@@ -787,7 +802,7 @@ $SERVER_NOW = time();
 
         <div class="vanillajs">
             <a href="http://vanilla-js.com/" rel="nofollow" target="_blank">
-                <img src="//cdn.qmp-media.nl/bc/vanilla_js.png" alt="Vanilla JS">
+                <img src="<?php echo htmlspecialchars($ASSET_BASE . 'vanilla_js.png', ENT_QUOTES); ?>" alt="Vanilla JS">
             </a>
         </div>
     </div>

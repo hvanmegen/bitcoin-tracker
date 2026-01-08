@@ -22,5 +22,5 @@ Minimalist Bitcoin price monitor with a live sparkline, trend-based mood copy, a
    - `* * * * * /usr/bin/php /path/to/update.php >/dev/null 2>&1`
 
 ## Notes
-- Video/poster assets point to `//cdn.qmp-media.nl/bc/`; change to local paths if you host them yourself.
+- The page derives its base URL at runtime. You can override the asset host (e.g., add `cdn.`) near the top of `index.php` (`$ASSET_HOST`).
 - Auto tone is client-clock based; a manual choice overrides it.
