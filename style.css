@@ -230,6 +230,10 @@ td.value {
 	font-weight: 400;
 }
 
+.source {
+	opacity: 0.15;
+}
+
 .source a,
 .vanillajs a {
 	text-decoration: none;
