@@ -388,13 +388,18 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
 
             [1, 24, 48, 72].forEach(h => {
                 const p = findBefore(latestTs - h * 3600);
-                if (p) rows.push({ label: fmtAgo(h * 3600) + ' ago', value: p.value });
+                if (p) rows.push({
+                    label: fmtAgo(h * 3600) + ' ago',
+                    value: p.value,
+                    ageSec: latestTs - p.ts
+                });
             });
 
             const first = state.samples[0];
             rows.push({
                 label: fmtAgo(latestTs - first.ts) + ' ago',
-                value: first.value
+                value: first.value,
+                ageSec: latestTs - first.ts
             });
 
             state.anchors = rows;
@@ -554,45 +559,26 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
 		    return clamp(Math.round(squished), -4, 4);
 		}
 
-		function computeTrendScore(cur, samples, findBeforeFn) {
-		    if (!cur || !samples?.length) return 0;
+        function computeAnchorTrendScore(cur, anchors, samples) {
+            if (!cur || !anchors?.length) return 0;
+            const vol = minuteVolatility(samples, 120) || 0.02; // % per minute
 
-		    const vol = minuteVolatility(samples, 60);       // % per minute
-		    const mom = medianMinuteReturn(samples, 30);     // % per minute (median)
+            let acc = 0;
+            let wsum = 0;
 
-		    const endTs = samples.at(-1).ts;
+            anchors.forEach(a => {
+                if (!a || !Number.isFinite(a.value) || !Number.isFinite(a.ageSec)) return;
+                const pct = pctChange(cur, a.value);
+                const horizonMin = Math.max(1, Math.round(a.ageSec / 60));
+                const z = normalizedMove(pct, vol, horizonMin);
+                const w = 1 + Math.log1p(horizonMin / 30); // gently favor longer anchors
+                acc += z * w;
+                wsum += w;
+            });
 
-		    const horizons = [
-		        { sec: 15 * 60,  w: 1.0, min: 15 },
-		        { sec: 60 * 60,  w: 1.2, min: 60 },
-		        { sec: 6 * 3600, w: 1.4, min: 360 },
-		        { sec: 24*3600,  w: 1.8, min: 1440 }
-		    ];
-
-		    let acc = 0;
-		    let wsum = 0;
-
-		    for (const h of horizons) {
-		        const ref = findBeforeFn(endTs - h.sec);
-		        if (!ref) continue;
-
-		        const p = pctChange(cur, ref.value);
-		        const z = normalizedMove(p, vol || 0.02, h.min); // fallback vol if empty
-		        acc += z * h.w;
-		        wsum += h.w;
-		    }
-
-		    // Momentum nudge (prevents "flat" when it’s steadily creeping)
-		    // Scale mom to a 30-min cumulative move:
-		    const mom30 = mom * 30; // % over ~30 mins (median-based)
-		    const momZ = normalizedMove(mom30, vol || 0.02, 30);
-		    acc += momZ * 0.6;
-		    wsum += 0.6;
-
-		    if (!wsum) return 0;
-
-		    return quantizeScore(acc / wsum);
-		}
+            if (!wsum) return 0;
+            return quantizeScore(acc / wsum);
+        }
 
 		function sinceStartTrend(cur, samples) {
 		    const first = samples?.[0];
@@ -613,7 +599,7 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
 		    const cur = state.targetValue;
 		    if (!cur || !state.samples.length) return null;
 
-		    const score = computeTrendScore(cur, state.samples, findBefore);
+		    const score = computeAnchorTrendScore(cur, state.anchors, state.samples);
 
 		    const base = bitcoinMood(score);
 		    const long = sinceStartTrend(cur, state.samples);
