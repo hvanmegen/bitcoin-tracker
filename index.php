@@ -752,9 +752,18 @@ $ASSET_BASE = $scheme . '://' . $ASSET_HOST . $dir;
             document.addEventListener('keydown', (e) => {
                 if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
                     e.preventDefault();
-                    if (e.key === 'ArrowLeft') setMoodOverride('pro');
-                    if (e.key === 'ArrowRight') setMoodOverride('degen');
-                    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') setMoodOverride(null);
+                    const setting = state.moodSetting || 'auto';
+                    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+                        setMoodOverride(null);
+                    } else if (e.key === 'ArrowLeft') {
+                        if (setting === 'pro') setMoodOverride(null);
+                        else if (setting === 'degen') setMoodOverride(null);
+                        else setMoodOverride('pro');
+                    } else if (e.key === 'ArrowRight') {
+                        if (setting === 'degen') setMoodOverride(null);
+                        else if (setting === 'pro') setMoodOverride(null);
+                        else setMoodOverride('degen');
+                    }
                     animateMoodThumb();
                 }
             });
