@@ -1,0 +1,179 @@
+/* -------------------------------------------------
+   Bitcoin Monitor - base palette (dark-first)
+-------------------------------------------------- */
+
+:root {
+	--bg: #1f1f1f;
+	--fg: #eeeeee;
+	--up: #66bb6a;
+	--down: #ff6b6b;
+	--neutral: rgba(180,180,180,0.70);
+	--muted: rgba(255,255,255,0.30);
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg: #f4f4f4;
+		--fg: #111111;
+		--up: #2e7d32;
+		--down: #c62828;
+		--neutral: rgba(0,0,0,0.45);
+		--muted: rgba(0,0,0,0.35);
+	}
+}
+
+/* -------------------------------------------------
+   Layout
+-------------------------------------------------- */
+
+body {
+	margin: 0;
+	background: var(--bg);
+	color: var(--fg);
+	font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+	font-weight: 600;
+}
+
+.container {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+}
+
+/* -------------------------------------------------
+   Video
+-------------------------------------------------- */
+
+video {
+	width: 512px;
+	height: 512px;
+	max-width: 92vw;
+	max-height: 92vw;
+	aspect-ratio: 1 / 1;
+	margin-bottom: 1em;
+}
+
+/* -------------------------------------------------
+   Main price
+-------------------------------------------------- */
+
+.price {
+	font-size: 3.2em;
+	letter-spacing: 0.02em;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum";
+}
+
+.up   { color: var(--up); }
+.down { color: var(--down); }
+
+.stale {
+	opacity: 0.6;
+}
+
+/* -------------------------------------------------
+   Sparkline
+-------------------------------------------------- */
+
+.sparks {
+	margin-top: 0.8em;
+}
+
+.sparks canvas {
+	display: block;
+	margin: 0 auto;
+}
+
+.spark-label {
+	font-size: 0.7em;
+	opacity: 0.35;
+	margin-top: 0.2em;
+}
+
+/* -------------------------------------------------
+   Anchors table
+-------------------------------------------------- */
+
+table.anchors {
+	margin-top: 1.2em;
+	font-size: 0.85em;
+	font-weight: 500;
+	line-height: 1.6;
+	border-collapse: collapse;
+}
+
+table.anchors td {
+	padding: 0.1em 0.4em;
+	white-space: nowrap;
+}
+
+td.label {
+	text-align: right;
+}
+
+td.value {
+	text-align: left;
+}
+
+/* monospaced, stable numerics */
+.anchors,
+.anchors td,
+.anchor-price,
+.indicator {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-variant-numeric: tabular-nums;
+	font-feature-settings: "tnum";
+}
+
+.indicator {
+	margin-left: 0.6em;
+}
+
+/* safety: ensure anchor prices never inherit .price sizing */
+#anchors .anchor-price,
+#anchors .indicator,
+#anchors .price {
+	font-size: 1em;
+	font-weight: inherit;
+	letter-spacing: 0;
+}
+
+/* -------------------------------------------------
+   Conclusion (quote-style)
+-------------------------------------------------- */
+
+.conclusion {
+	margin-top: 2.2em;
+	margin-bottom: 0.6em;
+	font-size: 0.95em;
+	font-weight: 500;
+	opacity: 0.55;
+	font-style: italic;
+}
+
+/* -------------------------------------------------
+   Credits
+-------------------------------------------------- */
+
+.source,
+.vanillajs {
+	margin-top: 1.8em;
+	font-size: 0.75em;
+	font-weight: 400;
+	opacity: 0.25;
+}
+
+.source a,
+.vanillajs a {
+	text-decoration: none;
+	color: var(--fg);
+}
+
+.source:hover,
+.vanillajs:hover {
+	opacity: 1;
+}
