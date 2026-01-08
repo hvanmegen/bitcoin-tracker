@@ -1,74 +1,165 @@
 {
-  "4": [
-    "absolutely sending it 🚀",
-    "in full degen price discovery",
-    "doing a straight moon mission",
-    "up only and disrespectful",
-    "violating all resistance",
-    "making bears question reality"
-  ],
-  "3": [
-    "pumping like it forgot gravity",
-    "looking giga bullish",
-    "printing green nonstop",
-    "moving like a breakout wants to happen",
-    "making shorts nervous",
-    "clearly not done yet"
-  ],
-  "2": [
-    "grinding higher like a champ",
-    "slowly melting faces upward",
-    "holding an honest uptrend",
-    "walking it up quietly",
-    "green enough to keep bulls happy",
-    "behaving like accumulation"
-  ],
-  "1": [
-    "barely green but alive",
-    "creeping up suspiciously",
-    "showing life",
-    "edging higher",
-    "trying to go up",
-    "not dead yet"
-  ],
-  "0": [
-    "chopping like a blender",
-    "going absolutely nowhere",
-    "stuck in range hell",
-    "sideways and painful",
-    "boring everyone to death",
-    "maximizing trader suffering"
-  ],
-  "-1": [
-    "slightly red and annoying",
-    "leaking lower",
-    "giving back gains",
-    "cooling off",
-    "starting to feel heavy",
-    "testing weak hands"
-  ],
-  "-2": [
-    "bleeding but not dead",
-    "getting sold steadily",
-    "clearly under pressure",
-    "looking heavy as hell",
-    "dripping lower",
-    "making longs uncomfortable"
-  ],
-  "-3": [
-    "dumping like rent is due",
-    "getting slapped down",
-    "breaking hearts and trendlines",
-    "making fear fashionable again",
-    "looking like peak despair",
-    "starting to smell like opportunity"
-  ],
-  "-4": [
-    "absolutely giga rekt 💀",
-    "in full panic mode",
-    "making diamond hands earn their name",
-    "deep in blood-on-the-charts territory",
-    "forcing capitulation",
-    "testing everyone’s conviction HARD"
-  ]
+  "degen": {
+    "4": [
+      "sending it into orbit 🚀",
+      "full degen price discovery 🤯",
+      "up only and disrespectful 💅",
+      "melting faces on the way up 😎🔥",
+      "ignoring gravity completely 🎈",
+      "obliterating bears 🐻💥",
+      "doing a face-melting moon mission 🌕😵",
+      "nuking shorts from orbit 💣🩸",
+      "too strong to fade, good luck 😤",
+      "turning charts into vertical lines 🧱⬆️"
+    ],
+    "3": [
+      "pumping like it means it 🔥",
+      "looking giga bullish 🐂",
+      "printing green nonstop 💸",
+      "breaking stuff on the way up 🧨",
+      "making shorts sweat 😬",
+      "ripping with zero chill 🤘",
+      "steamrolling resistance levels 🚜",
+      "squeezing everything in sight 🧠🔧",
+      "doing violence to trendlines 🪓📈"
+    ],
+    "2": [
+      "grinding higher like a champ 🏋️",
+      "steady green drip 💧💚",
+      "creeping up while nobody watches 🕵️",
+      "slow-motion moon prep 🌕",
+      "sneaking higher on accumulation 📥",
+      "climbing the wall of worry 🧗😬",
+      "walking up stairs with a smirk 😏🪜"
+    ],
+    "1": [
+      "edging up with a smirk 😏",
+      "showing tiny bullish vibes ✨",
+      "tilting upward cautiously 🤔",
+      "not dead just yet 🧟",
+      "trying to stand up straight 🧍",
+      "maybe, just maybe, waking up 👀"
+    ],
+    "0": [
+      "chopping in range hell 😵‍💫",
+      "going nowhere fast 🧱",
+      "sideways and annoying 😑",
+      "stuck in max boredom 🥱",
+      "balanced pain for everyone 🤹",
+      "waiting to pick a side ⏳"
+    ],
+    "-1": [
+      "leaking a bit of red 🩸",
+      "giving back gains grudgingly 🙄",
+      "cooling off after hype 🧊",
+      "feeling heavy on top 🪨",
+      "testing weak hands ✋😰",
+      "sliding but not panicking 😬",
+      "taking the elevator down one floor 🛗"
+    ],
+    "-2": [
+      "bleeding steadily 😓",
+      "getting sold every bounce 🔨",
+      "clearly under pressure 💣",
+      "dripping lower with no mercy 💧",
+      "making longs uncomfortable 🥴",
+      "fighting gravity and losing 🪂",
+      "getting flushed candle by candle 🧻📉"
+    ],
+    "-3": [
+      "dumping like rent is due 🧾💀",
+      "getting slapped down hard 👋😖",
+      "breaking hearts and trendlines 💔📉",
+      "fear is fashionable again 😱",
+      "peak despair energy 🫠",
+      "only sharks are smiling 🦈",
+      "ripping liquidity from the books 🧨📉",
+      "turning bids into vapor 💨"
+    ],
+    "-4": [
+      "absolutely giga rekt 💀🔥",
+      "in full panic mode 😱🚨",
+      "testing diamond hands for real 💎🤲",
+      "blood-on-the-charts territory 🩸📊",
+      "forcing capitulation 🏳️",
+      "conviction getting nuked 💥",
+      "despair speedrun activated 🏃‍♂️💔",
+      "the floor is lava and everyone’s barefoot 🌋🔥",
+      "liquidations doing the talking 🧨💀"
+    ]
+  },
+  "pro": {
+    "4": [
+      "in decisive breakout territory",
+      "powering through resistance with conviction",
+      "showing relentless upside momentum",
+      "at the top of a strong bid",
+      "leading with exceptional strength",
+      "firmly in price discovery mode"
+    ],
+    "3": [
+      "pressing higher with buyers in control",
+      "advancing on solid volume",
+      "building a confident uptrend",
+      "tracking a strong bullish impulse",
+      "printing a series of higher highs",
+      "riding firm momentum"
+    ],
+    "2": [
+      "grinding upward in an orderly trend",
+      "holding higher lows with control",
+      "climbing steadily on the bid",
+      "maintaining constructive structure",
+      "tracking a healthy up-channel",
+      "supported by consistent demand"
+    ],
+    "1": [
+      "slightly tilted upward",
+      "leaning higher but measured",
+      "firming above nearby support",
+      "showing a mild bid",
+      "drifting up after a pause",
+      "staying buoyant intraday"
+    ],
+    "0": [
+      "balanced and two-way",
+      "range-bound and waiting for direction",
+      "marking time in consolidation",
+      "drifting sideways with low conviction",
+      "holding steady in equilibrium",
+      "trading quietly within the range"
+    ],
+    "-1": [
+      "softening from recent levels",
+      "easing back toward support",
+      "giving up a bit of ground",
+      "leaning lower with light supply",
+      "fading after an attempt higher",
+      "cooling off but orderly"
+    ],
+    "-2": [
+      "under persistent downward pressure",
+      "slipping through supports one by one",
+      "showing lower highs and lows",
+      "trending down with steady supply",
+      "struggling to attract bids",
+      "pressured in a controlled selloff"
+    ],
+    "-3": [
+      "breaking down decisively",
+      "accelerating lower on selling pressure",
+      "trending sharply to the downside",
+      "losing key supports in sequence",
+      "selling dominating the tape",
+      "in a pronounced bearish leg"
+    ],
+    "-4": [
+      "in capitulation-like conditions",
+      "experiencing heavy liquidation pressure",
+      "deep in a disorderly selloff",
+      "in a severe risk-off move",
+      "in stressed market conditions",
+      "absorbing intense downside flow"
+    ]
+  }
 }

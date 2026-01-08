@@ -105,7 +105,11 @@ $SERVER_NOW = time();
             fetchTimer: null,
             signature: null,
 
-			hasRenderedOnce: false
+			hasRenderedOnce: false,
+
+            moodMode: null,
+            moodOverride: null,
+            moodSetting: 'auto'
         };
 
         /* =========================
@@ -116,6 +120,7 @@ $SERVER_NOW = time();
         const elSparkLabel = () => document.getElementById('sparkLabel');
         const elAnchors = () => document.getElementById('anchors');
         const elConclusion = () => document.getElementById('conclusion');
+        const elMoodThumb = () => document.getElementById('moodThumb');
 
         /* =========================
            FETCH
@@ -263,8 +268,7 @@ $SERVER_NOW = time();
 			buildAnchors();
 			drawSparkline();
 
-			const c = getConclusion();
-			if (elConclusion()) elConclusion().textContent = c ?? '';
+			renderConclusion();
 
 			// Predict and schedule next fetch (server-time based, skew-aware)
 			scheduleNextFetch();
@@ -608,26 +612,141 @@ $SERVER_NOW = time();
 		    return 'Bitcoin is ' + base;
 		}
 
+        function renderConclusion() {
+            const el = elConclusion();
+            if (!el) return;
+            el.textContent = getConclusion() ?? '';
+        }
+
 		let moodData = null;
+
+        function normalizeMoodData(raw) {
+            if (raw && (raw.pro || raw.degen)) return raw;
+            return {
+                degen: raw || {},
+                pro: raw || {}
+            };
+        }
+
+        function computeAutoMoodMode() {
+            const d = new Date();
+            const weekday = d.getDay(); // 0 = Sun, 1 = Mon
+            const hour = d.getHours();
+            const minute = d.getMinutes();
+
+            const inOffice =
+                weekday >= 1 &&
+                weekday <= 5 &&
+                (
+                    hour > 8 && hour < 17 ||
+                    (hour === 8) ||
+                    (hour === 17 && minute < 30) ||
+                    (hour === 17 && minute === 30 && d.getSeconds() === 0)
+                );
+
+            return inOffice ? 'pro' : 'degen';
+        }
+
+        function loadMoodOverride() {
+            try {
+                const saved = localStorage.getItem('moodOverride');
+                if (saved === 'pro' || saved === 'degen') {
+                    state.moodOverride = saved;
+                }
+            } catch (e) {}
+        }
+
+        function setMoodOverride(mode) {
+            state.moodOverride = mode;
+            try {
+                if (mode) localStorage.setItem('moodOverride', mode);
+                else localStorage.removeItem('moodOverride');
+            } catch (e) {}
+            updateMoodMode();
+        }
+
+        function updateMoodMode() {
+            const setting = state.moodOverride ? state.moodOverride : 'auto';
+            const effective = state.moodOverride || computeAutoMoodMode();
+
+            state.moodSetting = setting;
+            state.moodMode = effective;
+
+            renderMoodControls();
+            renderConclusion();
+        }
 
 		async function loadMood() {
 		    const res = await fetch('moods.json');
-		    moodData = await res.json();
+		    const raw = await res.json();
+            moodData = normalizeMoodData(raw);
+            updateMoodMode();
 		}
+
+        function moodListForScore(score) {
+            if (!moodData) return null;
+            const mode = state.moodMode || 'degen';
+            const set =
+                moodData[mode] ||
+                moodData.degen ||
+                moodData;
+
+            const bucket = String(Math.max(-4, Math.min(4, score)));
+            return set[bucket] || null;
+        }
 
 		function bitcoinMood(score) {
-		    if (!moodData) return 'doing something';
-
-		    const clamp = Math.max(-4, Math.min(4, score));
-		    const list = moodData[String(clamp)];
+		    const list = moodListForScore(score);
+		    if (!list || !list.length) return 'doing something';
 		    return list[Math.floor(Math.random() * list.length)];
 		}
+
+        function renderMoodControls() {
+            const thumb = elMoodThumb();
+            if (!thumb) return;
+
+            const setting = state.moodSetting || 'auto';
+            const mode = state.moodMode || 'degen';
+            const centers = {
+                pro: '18%',
+                auto: '50%',
+                degen: '82%'
+            };
+            const letters = {
+                pro: 'P',
+                auto: 'A',
+                degen: 'D'
+            };
+
+            thumb.style.left = centers[setting] || centers.auto;
+            thumb.textContent = letters[setting] || 'A';
+            const effective = mode === 'pro' ? 'pro' : 'degen';
+            thumb.title =
+                setting === 'auto'
+                    ? 'Auto tone (' + effective + ' right now)'
+                    : (setting === 'pro'
+                        ? 'Professional tone (manual override)'
+                        : 'Playful tone (manual override)');
+        }
+
+        function initMoodToggle() {
+            document.querySelectorAll('[data-mood-mode]').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const mode = btn.dataset.moodMode;
+                    if (mode === 'auto') setMoodOverride(null);
+                    else setMoodOverride(mode);
+                });
+            });
+        }
 
 
         /* =========================
            BOOT
         ========================= */
         document.addEventListener('DOMContentLoaded', () => {
+			loadMoodOverride();
+            initMoodToggle();
+            updateMoodMode();
 			loadMood();
             fetchFeed();
             render();
@@ -653,9 +772,17 @@ $SERVER_NOW = time();
         <div id="conclusion" class="conclusion"></div>
 
         <div class="source">
-            <a href="https://coingecko.com/" rel="nofollow" target="_blank">
-                powered with data from CoinGecko
-            </a>
+            powered with data from
+            <a href="https://coingecko.com/" rel="nofollow" target="_blank">CoinGecko</a>
+        </div>
+
+        <div class="mood-switch" aria-label="Tone">
+            <div class="mood-track">
+                <div id="moodThumb" class="mood-thumb">A</div>
+                <button type="button" class="mood-hit pro" data-mood-mode="pro" title="Professional tone (manual override)"></button>
+                <button type="button" class="mood-hit auto" data-mood-mode="auto" title="Auto tone (switches with office hours)"></button>
+                <button type="button" class="mood-hit degen" data-mood-mode="degen" title="Playful degen tone (manual override)"></button>
+            </div>
         </div>
 
         <div class="vanillajs">
